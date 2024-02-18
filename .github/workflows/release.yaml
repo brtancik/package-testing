@@ -64,4 +64,4 @@ jobs:
           commit: 'publish 🚀'
           title: 'Next Release 🚀'
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
