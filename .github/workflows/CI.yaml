@@ -7,41 +7,19 @@ on:
       - '.github/CODEOWNERS'
       - 'catalog-info.yaml'
       - 'mkdocks.yaml'
-  pull_request:
-    branches:
-      - '*'
-    paths-ignore:
-      - '**/*.md'
-      - '.github/CODEOWNERS'
-      - 'catalog-info.yaml'
-      - 'mkdocks.yaml'
+  # pull_request:
+  #   branches:
+  #     - '*'
+    # paths-ignore:
+    #   - '**/*.md'
+    #   - '.github/CODEOWNERS'
+    #   - 'catalog-info.yaml'
+    #   - 'mkdocks.yaml'
   workflow_dispatch:
 
 name: CI
 
-env:
-  api_gateway: 'false'
-  app_name: 'database-lib'
-  aws_region: us-east-1
-  namespace: 'finlegal-oms-decision-table'
-  value_stream: 'financeiro-legal'
-
 jobs:
-  # ci:
-  #   name: 'Build & Test'
-  #   runs-on: [ubuntu-latest]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         cache: npm
-  #         node-version-file: .nvmrc
-  #         registry-url: https://npm.pkg.github.com/
-  #     - name: Install Dependencies
-  #       run: npm ci
-
   release-branch:
     name: Create Release Branch
     runs-on: [ubuntu-latest]
