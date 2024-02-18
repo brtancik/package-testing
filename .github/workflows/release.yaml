@@ -48,7 +48,6 @@ jobs:
     permissions:
       pull-requests: write
       contents: write
-    needs: ci
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
