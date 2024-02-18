@@ -7,7 +7,7 @@ on:
 
 jobs:
   release-packages:
-    if: ${{ github.event.pull_request.merged == true && endsWith(github.head_ref, 'changeset-release/main') }}
+    # if: ${{ github.event.pull_request.merged == true && endsWith(github.head_ref, 'changeset-release/main') }}
     name: Release Packages
     runs-on: [ubuntu-latest]
     steps:
