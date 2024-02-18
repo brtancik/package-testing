@@ -26,6 +26,13 @@ jobs:
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare .npmrc File
+        run: |
+          echo "@grupoboticario:registry=https://npm.pkg.github.com/" > $HOME/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN" >> $HOME/.npmrc
+          cat $HOME/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GHA_PACKAGES }}
       - name: Release Packages
         run: npm run publish
         env:
