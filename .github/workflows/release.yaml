@@ -1,54 +1,15 @@
+name: Release Packages
+
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**/*.md'
-      - '.github/CODEOWNERS'
-      - 'catalog-info.yaml'
-      - 'mkdocks.yaml'
   pull_request:
-    branches:
-      - '*'
-    paths-ignore:
-      - '**/*.md'
-      - '.github/CODEOWNERS'
-      - 'catalog-info.yaml'
-      - 'mkdocks.yaml'
+    types: [closed]
   workflow_dispatch:
 
-name: CI
-
-env:
-  api_gateway: 'false'
-  app_name: 'database-lib'
-  aws_region: us-east-1
-  namespace: 'finlegal-oms-decision-table'
-  value_stream: 'financeiro-legal'
-
 jobs:
-  # ci:
-  #   name: 'Build & Test'
-  #   runs-on: [ubuntu-latest]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         cache: npm
-  #         node-version-file: .nvmrc
-  #         registry-url: https://npm.pkg.github.com/
-  #     - name: Install Dependencies
-  #       run: npm ci
-
-  release-branch:
-    name: Create Release Branch
+  release-packages:
+    if: ${{ github.event.pull_request.merged == true && endsWith(github.head_ref, 'changeset-release/main') }}
+    name: Release Packages
     runs-on: [ubuntu-latest]
-    permissions:
-      pull-requests: write
-      contents: write
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -60,10 +21,9 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: Install Dependencies
         run: npm ci
-      - name: Create Release Pull Request
-        uses: changesets/action@v1
-        with:
-          commit: 'publish 🚀'
-          title: 'Next Release 🚀'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release Packages
+        run: changeset release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
