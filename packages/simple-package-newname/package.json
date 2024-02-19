@@ -1,6 +1,6 @@
 {
-  "name": "@brtancik/simple-package02",
-  "version": "0.0.0",
+  "name": "@brtancik/simple-package-newname",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {

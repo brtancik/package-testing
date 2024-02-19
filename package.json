@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
-  "workspaces":[
+  "workspaces": [
     "packages/*"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "publish": "changeset publish"
